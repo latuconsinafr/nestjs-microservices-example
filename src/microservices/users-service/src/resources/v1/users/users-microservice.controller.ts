@@ -7,7 +7,7 @@ import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
 @Controller()
-export class UsersController {
+export class UsersMicroserviceController {
   constructor(private readonly usersService: UsersService) {}
 
   @MessagePattern({ role: 'users', cmd: 'getAll' })
