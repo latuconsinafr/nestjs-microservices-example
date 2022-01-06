@@ -1,27 +1,27 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { ClientGrpc } from '@nestjs/microservices';
+
+interface UsersGrpcService {
+  getAll(data: {}): Promise<any>;
+  get(data: { id: string }): Promise<any>;
+}
 
 @Injectable()
-export class UsersService {
-  constructor(@Inject('USERS_SERVICE') private readonly client: ClientProxy) {}
+export class UsersService implements OnModuleInit {
+  private usersGrpcService: UsersGrpcService;
+
+  constructor(@Inject('USERS_PACKAGE') private readonly client: ClientGrpc) {}
+
+  onModuleInit() {
+    this.usersGrpcService =
+      this.client.getService<UsersGrpcService>('UsersGrpcService');
+  }
 
   async findAll() {
-    return this.client.send(
-      {
-        role: 'users',
-        cmd: 'getAll',
-      },
-      '',
-    );
+    return await this.usersGrpcService.getAll({});
   }
 
   async findById(id: string) {
-    return this.client.send(
-      {
-        role: 'users',
-        cmd: 'getById',
-      },
-      id,
-    );
+    return this.usersGrpcService.get({ id });
   }
 }

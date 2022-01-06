@@ -1,0 +1,64 @@
+// protos/v1/users.proto
+syntax = "proto3";
+
+package users;
+
+service UsersGrpcService {
+    rpc GetAll(UsersGrpcGetAllRequest) returns (UsersGrpcGetAllResponse) {}
+    rpc Get(UsersGrpcGetRequest) returns (UsersGrpcGetResponse) {}
+    rpc Create(UsersGrpcCreateRequest) returns (UsersGrpcCreateResponse) {}
+    rpc Update(UsersGrpcUpdateRequest) returns (UsersGrpcUpdateResponse) {}
+    rpc Delete(UsersGrpcDeleteRequest) returns (UsersGrpcDeleteResponse) {}
+}
+
+message UsersGrpcGetAllRequest {
+
+}
+
+message UsersGrpcGetRequest {
+    string id = 1;
+}
+
+message UsersGrpcCreateRequest {
+    string username = 1;
+    string email = 2;
+    string phoneNumber = 3;
+    string password = 4;
+}
+
+message UsersGrpcUpdateRequest {
+    string id = 1;
+    string username = 2;
+    string email = 3;
+    string phoneNumber = 4;
+    string password = 5;
+}
+
+message UsersGrpcDeleteRequest {
+    string id = 1;
+}
+
+message UsersGrpcGetAllResponse {
+    repeated UsersGrpcGetResponse users = 1;
+}
+
+message UsersGrpcGetResponse {
+    string id = 1;
+    string username = 2;
+    string email = 3;
+    string phoneNumber = 4;
+    string createdAt = 5;
+    string updatedAt = 6;
+}
+
+message UsersGrpcCreateResponse {
+
+}
+
+message UsersGrpcUpdateResponse {
+
+}
+
+message UsersGrpcDeleteResponse {
+
+}

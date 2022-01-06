@@ -11,7 +11,7 @@ export default class UsersController {
   }
 
   @Get(':id')
-  async getUserById(@Param() id: string) {
+  async getUserById(@Param('id') id: string) {
     return this.usersService.findById(id);
   }
 }

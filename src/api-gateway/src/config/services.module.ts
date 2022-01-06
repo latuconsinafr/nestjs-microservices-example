@@ -4,14 +4,16 @@ import {
   ClientsModuleOptions,
   Transport,
 } from '@nestjs/microservices';
+import { join } from 'path/posix';
 
 const services: ClientsModuleOptions = [
   {
-    name: 'USERS_SERVICE',
-    transport: Transport.TCP,
+    name: 'USERS_PACKAGE',
+    transport: Transport.GRPC,
     options: {
-      host: '127.0.0.1',
-      port: 4001,
+      package: 'users',
+      protoPath: join(__dirname, '../services/v1/users/protos/users.proto'),
+      url: 'localhost:5001',
     },
   },
 ];
